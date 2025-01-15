@@ -4,6 +4,14 @@ import java.util.List;
 public class Library {
     List<Book> books = new ArrayList<Book>();
 
+    public Library(List<Book> books) {
+        this.books = books;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
     public void addBook(Book book) throws DuplicateBookException,IllegalArgumentException{
         for (Book existingBook : books) {
             if (existingBook.getISBN().equals(book.getISBN())) {

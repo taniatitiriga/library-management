@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.LinkedList;
 
 public class DBConnection {
     public static Connection establishDatabaseConnection() {
@@ -20,7 +21,7 @@ public class DBConnection {
     }
     public static void loadLibrary(Connection connection) throws SQLException, DuplicateBookException {
         String selectSQL = "SELECT * FROM Books";
-        Library library = new Library();
+        Library library = new Library(new LinkedList<>());
 
         if (connection == null) {
             System.err.println("DB not available");

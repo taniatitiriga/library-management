@@ -10,4 +10,7 @@ public class Application {
         this.connection = connection;
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
 }

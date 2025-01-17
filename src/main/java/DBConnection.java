@@ -19,13 +19,13 @@ public class DBConnection {
         }
         return connection;
     }
-    public static void loadLibrary(Connection connection) throws SQLException, DuplicateBookException {
+    public static Library loadLibrary(Connection connection) throws SQLException, DuplicateBookException {
         String selectSQL = "SELECT * FROM Books";
         Library library = new Library(new LinkedList<>());
 
         if (connection == null) {
             System.err.println("DB not available");
-            return;
+            return null;
         }
 
         Statement statement = connection.createStatement();
@@ -41,9 +41,10 @@ public class DBConnection {
             int bookAvailableCopies = resultSetBooks.getInt("available_copies");
 
             Book book = new Book(bookISBN, bookTitle, bookAuth, bookPublisher, bookPublishingYear, bookTotalCopies, bookAvailableCopies);
-            OutputDevice.print(book.toString());
+            //OutputDevice.print(book.toString());
             library.addBook(book);
         }
+        return library;
     }
 
     public static void updateBookStock(Connection connection, String isbn, int new_stock) throws SQLException, DuplicateBookException {
@@ -71,13 +72,13 @@ public class DBConnection {
         }
     }
 
-    public static void loadMasterRecord(Connection connection) throws SQLException, DuplicateRecordException {
+    public static MasterRecord loadMasterRecord(Connection connection) throws SQLException, DuplicateRecordException {
         String selectSQL = "SELECT * FROM BorrowingRecords";
-        MasterRecord masterRec = new MasterRecord();
+        MasterRecord masterRec = new MasterRecord(new LinkedList<>());
 
         if (connection == null) {
             System.err.println("DB not available");
-            return;
+            return null;
         }
 
         Statement statement = connection.createStatement();
@@ -92,9 +93,10 @@ public class DBConnection {
             int returned = resultSetBRs.getInt("returned");
 
             BorrowRecord borrowRecord = new BorrowRecord(recordId, userId, isbn, borrowDate, returnDate, returned);
-            OutputDevice.print(borrowRecord.toString());
+            //OutputDevice.print(borrowRecord.toString());
             masterRec.addBRecord(borrowRecord);
         }
+        return masterRec;
     }
 
 }

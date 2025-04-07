@@ -5,12 +5,11 @@ public class DBConnection {
     public static Connection establishDatabaseConnection() {
         Connection connection = null;
         try {
-            // Database connection parameters
+            // database connection parameters
             String jdbcUrl = "jdbc:mysql://localhost:3308/library_management";
             String dbUsername = "root";
             String dbPassword = "root_password";
 
-            // Establish the database connection
             connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
             System.out.println("Connected to the database!");
         } catch (SQLException e) {
